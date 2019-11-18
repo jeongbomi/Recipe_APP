@@ -1,0 +1,169 @@
+<template>
+  <div>
+  <div class="recipe-all">
+    <div v-if="MyItems.length > 0">
+      <div v-for="item in MyItems" style ="position:relative; margin-bottom:2px;" @click="getDetail(item)">
+        <img :src="item.picture" style="vertical-align: middle;">
+          <div class ="text">
+            <h3 style="margin-bottom:5px;">{{item.summary}}</h3>
+            <h1>{{item.name}}</h1>
+          </div>
+      </div>
+    </div>
+    <div v-else>
+      <h1 style="margin-top:120px">{{text}}</h1>
+    </div>
+  </div>
+  <router-link to="/recipe/create"><img src="../assets/상세창/contract.png"
+    style="width:15%; z-index:199; position: fixed; bottom: 15px; right: 15px;
+      border: 2px solid rgb(255, 173, 0); border-radius: 50px;" /></router-link>
+</div>
+</template>
+
+<script>
+import axios from 'axios'
+
+
+export default {
+  name: "recipeShowAllPage",
+  data() {
+    return {
+      MyItems:[
+      ],
+      historydata:"",
+      text: ""
+    }
+  },
+  methods: {
+    getDetail(item) {
+      this.$router.push('/recipe/' + item._id)
+    },
+    filter: async function(foodinfo) {
+      await axios.get('http://54.180.151.135:3000/api/recipe')
+      .then(response => {
+        if (foodinfo == 'total') {
+          this.MyItems = response.data
+        } else {
+          if (foodinfo) {
+            response.data.forEach(data => {
+              let totolrecipe = []
+              if (data.nation == foodinfo) {
+                this.MyItems.push(data)
+              }
+            })
+          } else {
+            response.data.forEach(data => {
+              let totolrecipe = []
+              for (let i in data.ingredients[0].주재료) {
+                for (let key in data.ingredients[0].주재료[i]) {
+                  totolrecipe.push(key)
+                }
+              }
+              for (let i in data.ingredients[0].부재료) {
+                for (let key in data.ingredients[0].부재료[i]) {
+                  totolrecipe.push(key)
+                }
+              }
+              for (let i in data.ingredients[0].양념) {
+                for (let key in data.ingredients[0].양념[i]) {
+                  totolrecipe.push(key)
+                }
+              }
+              let judge = true
+              for (let i in this.historydata.recipe) {
+                if (totolrecipe.indexOf(this.historydata.recipe[i]) == -1) {
+                  judge = false
+                }
+              }
+              
+              if (judge) {
+                this.MyItems.push(data)
+              }
+            })
+
+            if (this.MyItems.length == 0) {
+              this.text = "검색결과가 없습니다."
+            }
+          }
+        }
+      })
+      .catch(error => console.log(error))
+    },
+    isEmpty: function(ob) {
+      for (let i in ob) {
+        return false
+      }
+      return true
+    }
+  },
+  mounted() {
+    this.historydata = JSON.parse(sessionStorage.getItem('recipeinfo'))
+    if (this.historydata.recipe.length > 0) {
+      this.filter()
+    } else {
+      if (this.isEmpty(this.historydata.nation)) {
+        this.filter('total')
+      } else {
+        this.filter(this.historydata.nation)
+      }
+    }
+  },
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="scss" scopped>
+@import url('https://fonts.googleapis.com/css?family=Jua&display=swap');
+html {
+  overflow: scroll;
+}
+.recipe-all {
+  // margin-top: 80px;
+  margin-bottom: 81px;
+  .text{
+    background-color: rgba(242, 159, 175, 0.76);
+    vertical-align: center;
+				text-align: left;
+        position: absolute;
+	       top: 85%;
+	        left: 50%;
+          width: 350px;
+          height: 90px;
+          padding-left: 10px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          transform: translate( -50%, -50% );
+          color: white;
+
+  }
+  h1{
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+  }
+  h3{
+    display: block;
+    font-size: 1.0em;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+  }
+
+
+  img{
+    width: 100%;
+  }
+
+  #btn{
+    width: 15%;
+  }
+
+  }
+
+</style>
