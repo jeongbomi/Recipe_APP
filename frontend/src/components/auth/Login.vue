@@ -1,6 +1,5 @@
 <template>
   <div class="div-login">
-    {{ this.$http }}
     <h2>로그인</h2>
     <form>
       <input class="input-login" type="text" v-model="userid" placeholder="ID" />

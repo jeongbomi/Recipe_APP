@@ -53,7 +53,7 @@ app.use(function(err, req, res, next) {
   res.render("error");
 });
 
-// db connect http://127.0.0.1:27017/ 172.26.9.182:27017
+// db connect
 mongoose.connect("mongodb://127.0.0.1:27017/recipe", {
   useNewUrlParser: true,
   useUnifiedTopology: true

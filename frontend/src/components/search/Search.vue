@@ -228,11 +228,11 @@ export default {
   display: grid;
   width: 90%;
   margin-left: 20px;
-  //   margin-right: 10px;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 145px;
 }
 .imgtag {
-  margin-top: 70px;
-  margin-left: 8px;
+  margin-top: 38%;
+  margin-left: 18px;
 }
 </style>

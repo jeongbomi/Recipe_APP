@@ -56,7 +56,7 @@ export default {
             } else if (this.password.length < 4) {
                 alert("최소 4자 이상 입력해주세요")
             } else {
-                this.$http.post('http://localhost:3000/api/users/create/', {userid: this.userid, password: this.password})
+                this.$http.post('/api/users/create/', {userid: this.userid, password: this.password})
                     .then((response) => {
                         if (response.data) {
                             alert('Success')

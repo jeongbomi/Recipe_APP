@@ -15,6 +15,9 @@
     <li v-show="urldata!='Menu'">
       <router-link id="nav-li" to="/Main">RE:CIPE</router-link>
     </li>
+    <li v-show="urldata!='Menu'" style="float:right;">
+      <span><i id="btnInstall" class="fas fa-mobile-alt"></i></span>
+    </li>
     <li v-show="urldata!='Menu'" style="float:right">
       <router-link class="active" to="/Profile">
         <i id="nav-icon2" class="far fa-user"></i>
@@ -101,7 +104,15 @@ li a {
   display: inline-block;
   color: white;
   text-align: center;
-  padding: 14px 16px;
+  padding: 15px 13px;
+  text-decoration: none;
+}
+
+li span {
+  display: inline-block;
+  color: rgb(167, 167, 167);
+  text-align: center;
+  padding: 15px 13px;
   text-decoration: none;
 }
 
