@@ -38,6 +38,27 @@ export default {
   created() {
     this.data = JSON.parse(sessionStorage.getItem("userinfo"));
     window.addEventListener("scroll", this.onScroll);
+
+    let installPrompt;
+
+    window.addEventListener("beforeinstallprompt", e => {
+      console.log(e)
+      e.preventDefault();
+      installPrompt = e;
+      this.installBtn = "block";
+    });
+
+    this.installer = () => {
+      this.installBtn = "none";
+      installPrompt.prompt();
+      installPrompt.userChoice.then(result => {
+        if (result.outcome === "accepted") {
+          console.log("Install accepted!")
+        } else {
+          console.log("Install denied!")
+        }
+      });
+    };
   },
   methods: {
     onScroll() {
