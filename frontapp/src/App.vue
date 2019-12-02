@@ -15,7 +15,7 @@
 
 <script>
 import Navbar from "./components/navbar/Navbar";
-import NotMobile from "./components/Loading/NotMobile"
+import NotMobile from "./components/Loading/NotMobile";
 
 export default {
   name: 'app',
