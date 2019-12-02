@@ -40,22 +40,21 @@ export default {
   mounted() {
     let installPrompt;
     window.addEventListener("beforeinstallprompt", e => {
-    console.log(e)
-    e.preventDefault();
-    installPrompt = e;
-    this.installBtn = "";
+      console.log(e)
+      e.preventDefault();
+      installPrompt = e;
+      this.installBtn = "";
     });
-    console.log(this.installBtn)
     this.installer = () => {
-    this.installBtn = "none";
-    installPrompt.prompt();
-    installPrompt.userChoice.then(result => {
+      this.installBtn = "none";
+      installPrompt.prompt();
+      installPrompt.userChoice.then(result => {
         if (result.outcome === "accepted") {
         console.log("Install accepted!")
         } else {
         console.log("Install denied!")
         }
-    });
+      });
     };
   },
   created() {

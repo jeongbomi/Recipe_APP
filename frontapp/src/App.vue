@@ -30,7 +30,11 @@ export default {
   },
   methods: {
     ismobile() {
-      if (
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        console.log('display-mode is standalone');
+        return true
+      } 
+      else if (
         /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
           navigator.userAgent
         )
