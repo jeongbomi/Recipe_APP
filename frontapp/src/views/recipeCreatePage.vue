@@ -32,7 +32,6 @@
       </div>
     </div>
     <br />
-    {{ category }} {{ kinds }}
     <div v-for="(info, index) in infos" v-bind:key="index">
       <div class="inputForm">
         <label for="fileInput"><b>STEP {{ index + 1 }}</b></label>
