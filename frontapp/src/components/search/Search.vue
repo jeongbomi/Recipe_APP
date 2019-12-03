@@ -1,6 +1,6 @@
 <template>
   <div class="div-search">
-    <button style="margin-top:70px; width: 80%;" class="btn-search" @click="search()">레시피 검색</button>
+    <button style="margin-top:80px; width: 80%;" class="btn-search" @click="search()">레시피 검색</button>
     <div style="margin: 2%">
       <input
         type="text"

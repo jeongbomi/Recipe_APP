@@ -39,7 +39,7 @@ export default {
       this.$router.push('/recipe/' + item._id)
     },
     filter: async function(foodinfo) {
-      await axios.get('http://54.180.151.135:3000/api/recipe')
+      await axios.get('http://localhost:3000/api/recipe')
       .then(response => {
         if (foodinfo == 'total') {
           this.MyItems = response.data

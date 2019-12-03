@@ -4,7 +4,7 @@
       <router-link class="active" to="/Menu">
         <i id="nav-icon1" class="fas fa-search"></i>
       </router-link>
-      <input v-show="urldata=='Menu'" type="search" />
+      <input v-show="urldata=='Menu'" type="search"/>
     </li>
     <li style="float:left" v-else>
       <router-link class="active" to="/Menu">
@@ -66,13 +66,11 @@ export default {
       if (window.pageYOffset > 10) {
         document.getElementById("navbar").style.backgroundColor = "#F57694";
         document.getElementById("nav-li").style.color = "#FFFFFF";
-        document.getElementById("nav-icon").style.color = "#FFFFFF";
         document.getElementById("nav-icon1").style.color = "#FFFFFF";
         document.getElementById("nav-icon2").style.color = "#FFFFFF";
       } else {
         document.getElementById("navbar").style.backgroundColor = "";
         document.getElementById("nav-li").style.color = "#999";
-        document.getElementById("nav-icon").style.color = "#999";
         document.getElementById("nav-icon1").style.color = "#999";
         document.getElementById("nav-icon2").style.color = "#999";
       }
