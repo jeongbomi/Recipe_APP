@@ -1,6 +1,7 @@
 <template>
   <div class="recipe-create">
     <h2>NEW RE:CIPE</h2>
+    {{ userid }}
     <div>
       <input v-model="name" type="text" placeholder="요리 이름을 입력해주세요."/>
       <input v-model="ingredients" type="text" placeholder="요리 재료를 입력해주세요." style="margin-top: 15px;"/>
@@ -82,9 +83,9 @@ export default {
     };
   },
   methods: {
-    async submit() {
+    async newSubmit() {
       await axios
-        .post("http://54.180.151.135:3000/api/recipe/create", {
+        .post("http://localhost:3000/api/recipe/create", {
           name: this.name,
           userid: this.userid,
           ingredients: this.ingredients,
@@ -102,7 +103,7 @@ export default {
         })
         .catch(error => {
           console.log(error);
-        });
+      });
     },
     addNewInfo(index) {
       this.infos.splice(index + 1, 0, {
@@ -111,7 +112,6 @@ export default {
       });
 
       this.step = this.step + 1
-      console.log(this.infos)
     },
     deleteInfo(index) {
       this.infos.splice(index, 1);
@@ -126,17 +126,17 @@ export default {
         this.step = this.step - 1
       }
     },
-    async imageChange(index, event) {
-      var img = event.target.files[0];
-      var imgUrl = window.URL.createObjectURL(img)
-      this.infos[index].file = imgUrl
-      
-      // await axios
-      //   .post("http://54.180.151.135:3000/api/image/create", image)
-      //   .then(response => console.log(response))
-      //   .catch(error => console.log(error));
-      // info.file = URL.createObjectURL(event.target.files[0]);
-      // console.log(info.file);
+    imageChange(index, event) {
+      var img = event.target;
+      var imgInfo = this.infos
+
+      var reader = new FileReader();
+      reader.onload = async function(){
+        var dataURL = await reader.result;
+        imgInfo[index].file = dataURL
+      };
+
+      reader.readAsDataURL(img.files[0]);
     },
     onChange(event) {
       if (event.target.value === '나라'){
@@ -173,7 +173,7 @@ html {
     }
   }
   h2 {
-    color: #999;
+    color: #797979;
   }
   i:active {
     color: #ed2894;
