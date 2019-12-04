@@ -26,6 +26,7 @@ export default {
       Login: function() {
         this.$http.post('http://localhost:3000/api/users/login/', {userid: this.userid, password: this.password})
             .then((response) => {
+                console.log(response.data)
                 sessionStorage.setItem('userinfo', JSON.stringify({userid: response.data.userid, ingredients: response.data.ingredients}))
                 alert('Login')
                 window.location.href = '/';
