@@ -20,7 +20,6 @@ export default {
         }
     },
     created() {
-        this.data = JSON.parse(sessionStorage.getItem('userinfo'))
     },
     mounted() {
         this.height = window.innerHeight

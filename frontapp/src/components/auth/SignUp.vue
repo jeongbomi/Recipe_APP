@@ -164,11 +164,12 @@ export default {
             } else if (this.password.length < 4) {
                 alert("최소 4자 이상 입력해주세요")
             } else {
-                this.$http.post('/api/users/create/', {userid: this.userid, password: this.password})
+                this.$http.post('http://localhost:3000/api/users/create/', {userid: this.userid, password: this.password, foods:this.foods})
                     .then((response) => {
                         if (response.data) {
                             alert('Success')
-                            sessionStorage.setItem('userinfo', JSON.stringify({userid: response.data.userid}))
+                            localStorage.setItem('userinfo', JSON.stringify({userid: response.data.userid}))
+                            localStorage.setItem('userfood', JSON.stringify({userfood: this.foods}))
                             window.location.href = '/Main';
                         } else {
                             alert('이미 사용중인 ID입니다.')

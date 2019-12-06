@@ -30,6 +30,7 @@ export default {
       data: "",
       ingredient: "",
       ingredients: [],
+      userfoods: [],
       save: [
         "가지",
         "감자",
@@ -136,10 +137,19 @@ export default {
       semi_save: []
     };
   },
-  created() {
-    this.data = JSON.parse(sessionStorage.getItem("userinfo"));
+  mounted() {
+    this.data = JSON.parse(localStorage.getItem("userinfo"));
+    var userFood = JSON.parse(localStorage.getItem("userfood"))
+    var semiSave = this.semi_save
+    var ingredientsSave = this.ingredients
+    this.userfoods = userFood.userfood
+
+    this.userfoods.forEach(async function(food) {
+      semiSave.push(food)
+      let foodUrl = require(`../../assets/재료/${food}.png`);
+      ingredientsSave.push({ url: foodUrl, name: food })
+    })
   },
-  mounted() {},
   methods: {
     Ingredient_add: function() {
       if (this.ingredients.length < 9) {
@@ -150,17 +160,30 @@ export default {
             this.ingredients.push({ url: dataurl, name: this.ingredient });
             this.ingredient = "";
           } else {
-            alert("없는 재료입니다.");
+            alert("RE:CIPE에는 없는 재료입니다.");
           }
         } else {
-          alert("이미 있는 재료입니다.");
+          alert("이미 등록되어 있는 재료입니다.");
         }
       } else {
-        alert("더이상 못넣어")
+        alert("재료를 넣을 공간이 부족합니다.")
       }
     },
     reqdelete: function(data) {
+      let idx = 0;
       let cnt = 0;
+      if (this.userfoods.length > 0){
+        console.log(data)
+        this.userfoods.some(food =>{
+          if (food == data){
+            return true;
+          } else{
+            idx += 1;
+          }
+        })
+        this.userfoods.splice(idx, 1);
+        localStorage.setItem('userfood', JSON.stringify({userfood: this.userfoods}))
+      }
       this.semi_save.some(res => {
         if (res == data) {
           return true;

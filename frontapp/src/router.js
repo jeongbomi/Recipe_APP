@@ -76,20 +76,20 @@ const router = new Router({
   ]
 });
 
-router.beforeEach((to, from, next) => {
-  if (JSON.parse(sessionStorage.getItem("userinfo"))) {
-    if (to.name === "SignUp" || to.name === "Login" || to.name === "Loading") {
-      return next("/Main");
-    } else {
-      return next();
-    }
-  } else {
-    if (to.name === "SignUp" || to.name === "Login" || to.name === "Loading") {
-      return next();
-    } else {
-      return next("/");
-    }
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   if (JSON.parse(sessionStorage.getItem("userinfo"))) {
+//     if (to.name === "SignUp" || to.name === "Login" || to.name === "Loading") {
+//       return next("/Main");
+//     } else {
+//       return next();
+//     }
+//   } else {
+//     if (to.name === "SignUp" || to.name === "Login" || to.name === "Loading") {
+//       return next();
+//     } else {
+//       return next("/");
+//     }
+//   }
+// });
 
 export default router;

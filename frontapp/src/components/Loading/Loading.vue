@@ -13,9 +13,24 @@ export default {
         }
     },
     mounted() {
-        setTimeout(() => {
-           this.$router.push('/Login');
-        }, 3000)
+        if (JSON.parse(localStorage.getItem("userinfo"))){
+            this.userid = JSON.parse(localStorage.getItem("userinfo")).userid
+            this.$http.post('http://localhost:3000/api/users/storage/login/', {userid: this.userid})
+            .then(() => {
+                sessionStorage.setItem('userinfo', JSON.stringify({userid: this.userid}))
+                setTimeout(() => {
+                    this.$router.push("/Main");
+                }, 3000)
+            })
+            .catch(function (error) {
+                alert('error message: ' + error)
+            })
+        }
+        else {
+            setTimeout(() => {
+                this.$router.push('/Login');
+            }, 3000)
+        }
         this.height = window.innerHeight
         document.getElementById("div-loading").style.height = this.height + 'px'
         document.getElementById("h1-loading").style.height = this.height + 'px'

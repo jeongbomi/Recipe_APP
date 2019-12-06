@@ -12,8 +12,10 @@ export default {
 
     methods: {
         Logout: function() {
-            sessionStorage.removeItem("userinfo");
-            window.location.href = '/';
+            setTimeout(() => {
+                this.$router.push('/');
+            }, 1000)
+            localStorage.clear();
         },
     }
 }

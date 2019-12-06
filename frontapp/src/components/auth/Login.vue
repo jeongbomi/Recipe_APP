@@ -22,21 +22,26 @@ export default {
       password: ""
     };
   },
+  created() {
+  },
   methods: {
       Login: function() {
         this.$http.post('http://localhost:3000/api/users/login/', {userid: this.userid, password: this.password})
-            .then((response) => {
-                console.log(response.data)
-                sessionStorage.setItem('userinfo', JSON.stringify({userid: response.data.userid, ingredients: response.data.ingredients}))
-                alert('Login')
-                window.location.href = '/';
-            })
-            .catch(function (error) {
-                alert('error message: ' + error)
-            })
+          .then((response) => {
+              localStorage.setItem('userinfo', JSON.stringify({userid: response.data.userid}))
+              localStorage.setItem('userfood', JSON.stringify({userfood: response.data.foods}))
+              alert('Login')
+              this.$router.push("/Main");
+          })
+          .catch(function (error) {
+              alert('error message: ' + error)
+          })
       },
       SignMove: function() {
         this.$router.push("/SignUp");
+      },
+      MainMove: function() {
+        this.$router.push("/Main");
       }
   },
 }
