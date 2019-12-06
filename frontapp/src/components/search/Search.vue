@@ -149,6 +149,8 @@ export default {
       let foodUrl = require(`../../assets/재료/${food}.png`);
       ingredientsSave.push({ url: foodUrl, name: food })
     })
+
+    localStorage.setItem('userfood', JSON.stringify({userfood: semiSave}))
   },
   methods: {
     Ingredient_add: function() {
@@ -159,6 +161,11 @@ export default {
             let dataurl = require(`../../assets/재료/${this.ingredient}.png`);
             this.ingredients.push({ url: dataurl, name: this.ingredient });
             this.ingredient = "";
+            localStorage.setItem('userfood', JSON.stringify({userfood: this.semi_save}))
+            this.$http.post('http://localhost:3000/api/users/storage/food/', {userid: this.data.userid, userfood: this.semi_save})
+            .then(res => {
+              console.log(res)
+            })
           } else {
             alert("RE:CIPE에는 없는 재료입니다.");
           }
@@ -173,7 +180,6 @@ export default {
       let idx = 0;
       let cnt = 0;
       if (this.userfoods.length > 0){
-        console.log(data)
         this.userfoods.some(food =>{
           if (food == data){
             return true;
@@ -182,7 +188,6 @@ export default {
           }
         })
         this.userfoods.splice(idx, 1);
-        localStorage.setItem('userfood', JSON.stringify({userfood: this.userfoods}))
       }
       this.semi_save.some(res => {
         if (res == data) {
@@ -193,15 +198,21 @@ export default {
       });
       this.semi_save.splice(cnt, 1);
       this.ingredients.splice(cnt, 1);
-      alert("삭제되었습니다.");
+      localStorage.setItem('userfood', JSON.stringify({userfood: this.semi_save}))
+      this.$http.post('http://localhost:3000/api/users/storage/food/', {userid: this.data.userid, userfood: this.semi_save})
+      .then(res => {
+        console.log(res)
+        alert("삭제되었습니다.");
+      })
     },
     search: function() {
       if (this.ingredients.length > 0) {
-        sessionStorage.setItem(
-          "recipeinfo",
-          JSON.stringify({ recipe: this.semi_save, nation: ""})
-        );
-        this.$router.push("/recipe/ShowAll");
+        localStorage.setItem('userfood', JSON.stringify({userfood: this.semi_save}))
+        this.$http.post('http://localhost:3000/api/users/storage/food/', {userid: this.data.userid, password: this.password})
+        .then(res => {
+          console.log(res)
+          this.$router.push("/recipe/ShowAll");
+        })
       } else {
         alert('재료를 입력해주세요!')
       }

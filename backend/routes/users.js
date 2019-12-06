@@ -56,6 +56,7 @@ router.post('/login', function(req, res, next) {
     })
 })
 
+// localstorage user가 있을때 로그인
 router.post('/storage/login', function(req, res, next) {
     const userinfo = req.body.userid
     User.findOne({'userid': userinfo}).select('password').exec(function(err,user){
@@ -76,6 +77,14 @@ router.post('/storage/login', function(req, res, next) {
     });
 })
 
+// 재료 수정
+router.post('/storage/food', function(req, res, next) {
+    console.log(req.body)
+    User.findOneAndUpdate( 
+        {userid: req.body.userid}, { $set: {foods: req.body.userfood } }, {new: true}
+    );
+    res.send("Success")
+})
 
 // 비밀번호 확인
 router.post('/confirm/password', function(req, res, next) {
