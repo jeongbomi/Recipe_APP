@@ -1,7 +1,6 @@
 <template>
   <div class="recipe-create">
     <h2>NEW RE:CIPE</h2>
-    {{ userid }}
     <div>
       <input v-model="name" type="text" placeholder="요리 이름을 입력해주세요."/>
       <input v-model="ingredients" type="text" placeholder="요리 재료를 입력해주세요." style="margin-top: 15px;"/>

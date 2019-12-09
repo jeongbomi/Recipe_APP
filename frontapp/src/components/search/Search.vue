@@ -166,13 +166,16 @@ export default {
             .then(res => {
               console.log(res)
             })
-          } else {
+          } 
+          else {
             alert("RE:CIPE에는 없는 재료입니다.");
           }
-        } else {
+        } 
+        else {
           alert("이미 등록되어 있는 재료입니다.");
         }
-      } else {
+      } 
+      else {
         alert("재료를 넣을 공간이 부족합니다.")
       }
     },
@@ -202,7 +205,7 @@ export default {
       this.$http.post('http://localhost:3000/api/users/storage/food/', {userid: this.data.userid, userfood: this.semi_save})
       .then(res => {
         console.log(res)
-        alert("삭제되었습니다.");
+        alert("재료가 삭제되었습니다.");
       })
     },
     search: function() {
@@ -213,8 +216,9 @@ export default {
           console.log(res)
           this.$router.push("/recipe/ShowAll");
         })
+        this.$http.post()
       } else {
-        alert('재료를 입력해주세요!')
+        alert('재료를 입력해주세요.')
       }
     }
   }
