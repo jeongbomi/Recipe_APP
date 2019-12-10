@@ -51,7 +51,6 @@ router.post('/login', function(req, res, next) {
         if(!user) {// User가 없으면 error
             return res.status(404).json({error: '사용자를 찾을 수 없습니다.'})
         }
-        console.log(user)
         res.json(user);
     })
 })
@@ -64,26 +63,29 @@ router.post('/storage/login', function(req, res, next) {
             return res.status(500).json({error: err})
         }
         var password = user.password
-        User.findOne({userid: userinfo, password: password}, function(err, authUser){
+        User.findOne({'userid': userinfo, 'password': password}, function(err, authUser){
             if (err){
                 return res.status(500).json({error: err})
             }
             if (!authUser){
                 return res.status(404).json({error: '사용자를 찾을 수 없습니다.'})
             }
-            console.log(authUser)
-            res.send('Success')
+            res.send('LocalStorage User Login Success!')
         })
     });
 })
 
 // 재료 수정
 router.post('/storage/food', function(req, res, next) {
-    console.log(req.body)
     User.findOneAndUpdate( 
         {userid: req.body.userid}, { $set: {foods: req.body.userfood } }, {new: true}
-    );
-    res.send("Success")
+        , function(err, user){
+        if (err){
+            res.send(err)
+        } else {
+            res.send("UserFood Update Success!")
+        }
+    });
 })
 
 // 비밀번호 확인

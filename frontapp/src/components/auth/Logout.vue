@@ -12,10 +12,20 @@ export default {
 
     methods: {
         Logout: function() {
-            setTimeout(() => {
-                this.$router.push('/');
-            }, 1000)
-            localStorage.clear();
+            var userId = JSON.parse(localStorage.getItem("userinfo"));
+            var userFood = JSON.parse(localStorage.getItem("userfood")).userfood
+
+            this.$http.post('http://localhost:3000/api/users/storage/food/', {userid: userId, userfood: userFood})
+            .then((response) => {
+                console.log(response)
+                setTimeout(() => {
+                    this.$router.push('/');
+                }, 500)
+                localStorage.clear();
+            })
+            .catch(function (error) {
+                alert('error message: ' + error)
+            })
         },
     }
 }
