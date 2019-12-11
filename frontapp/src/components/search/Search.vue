@@ -216,7 +216,6 @@ export default {
           console.log(res)
           this.$router.push("/recipe/ShowAll");
         })
-        this.$http.post()
       } else {
         alert('재료를 입력해주세요.')
       }
