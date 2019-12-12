@@ -19,7 +19,7 @@ export default {
             .then(() => {
                 sessionStorage.setItem('userinfo', JSON.stringify({userid: this.userid}))
                 setTimeout(() => {
-                    this.$router.push("/Main");
+                    this.$router.push("/main");
                 }, 3000)
             })
             .catch(function (error) {
@@ -28,7 +28,7 @@ export default {
         }
         else {
             setTimeout(() => {
-                this.$router.push('/Login');
+                this.$router.push('/login');
             }, 3000)
         }
         this.height = window.innerHeight

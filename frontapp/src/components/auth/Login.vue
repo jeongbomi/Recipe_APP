@@ -31,17 +31,17 @@ export default {
               localStorage.setItem('userinfo', JSON.stringify({userid: response.data.userid}))
               localStorage.setItem('userfood', JSON.stringify({userfood: response.data.foods}))
               alert('Login')
-              this.$router.push("/Main");
+              this.$router.push("/main");
           })
           .catch(function (error) {
               alert('error message: ' + error)
           })
       },
       SignMove: function() {
-        this.$router.push("/SignUp");
+        this.$router.push("/signup");
       },
       MainMove: function() {
-        this.$router.push("/Main");
+        this.$router.push("/main");
       }
   },
 }

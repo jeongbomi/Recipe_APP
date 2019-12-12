@@ -46,7 +46,7 @@ export default {
     methods: {
         totalpage: function(data) {
             sessionStorage.setItem('recipeinfo', JSON.stringify({ recipe: "", nation: data}))
-            this.$router.push('/recipe/ShowAll')
+            this.$router.push('/recipe/show')
         }
     }
 }

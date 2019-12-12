@@ -214,7 +214,7 @@ export default {
         this.$http.post('http://localhost:3000/api/users/storage/food/', {userid: this.data.userid, password: this.password})
         .then(res => {
           console.log(res)
-          this.$router.push("/recipe/ShowAll");
+          this.$router.push("/recipe/show");
         })
       } else {
         alert('재료를 입력해주세요.')

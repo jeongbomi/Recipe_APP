@@ -14,55 +14,55 @@ const router = new Router({
       meta: { requiresAuth: true }
     },
     {
-      path: "/Login",
+      path: "/login",
       name: "Login",
       component: () => import("./components/auth/Login.vue"),
       meta: { requiresAuth: true }
     },
     {
-      path: "/Main",
+      path: "/main",
       name: "MainHomePage",
       component: () => import("./components/MainHomePage.vue"),
       meta: { transition: "fade" }
     },
     {
-      path: "/Main/Loading",
+      path: "/main/loading",
       name: "Ref",
       component: () => import("./components/Ref.vue"),
       meta: { requiresAuth: true }
     },
     {
-      path: "/SignUp",
+      path: "/signup",
       name: "SignUp",
       component: () => import("./components/auth/SignUp.vue"),
       meta: { requiresAuth: true }
     },
     {
-      path: "/Menu",
+      path: "/menu",
       name: "Menu",
       component: () => import("./components/Menu.vue"),
       meta: { transition: "fade-in-left" }
     },
     {
-      path: "/Profile",
+      path: "/profile",
       name: "Profile",
       component: () => import("./components/Profile/Profile.vue"),
       meta: { transition: "fade-in-right" }
     },
     {
-      path: "/PasswordChange",
+      path: "/password/update",
       name: "PasswordChange",
       component: () => import("./components/auth/PWchangePage.vue"),
       meta: { transition: "fade" }
     },
     {
-      path: "/recipe/Create",
+      path: "/recipe/create",
       name: "RecipeCreate",
       component: () => import("./views/recipeCreatePage.vue"),
       meta: { requiresAuth: true }
     },
     {
-      path: "/recipe/ShowAll",
+      path: "/recipe/show",
       name: "RecipeShowAll",
       component: () => import("./components/recipeShowAllPage.vue"),
       meta: { requiresAuth: true }

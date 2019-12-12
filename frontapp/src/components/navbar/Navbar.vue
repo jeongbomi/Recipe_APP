@@ -1,22 +1,22 @@
 <template>
   <ul id="navbar">
     <li style="float:left" v-if="['MainHomePage', 'RecipeShowAll'].includes($route.name)">
-      <router-link class="active" to="/Menu">
+      <router-link class="active" to="/menu">
         <i id="nav-icon1" class="fas fa-search"></i>
       </router-link>
       <input v-show="urldata=='Menu'" type="search"/>
     </li>
     <li style="float:left" v-else>
-      <router-link class="active" to="/Menu">
+      <router-link class="active" to="/menu">
         <i id="nav-icon1" class="fas fa-utensils"></i>
       </router-link>
       <input v-show="urldata=='Menu'" type="search" />
     </li>
     <li v-show="urldata!='Menu'">
-      <router-link id="nav-li" to="/Main" style="margin-left: 36px;">RE:CIPE</router-link>
+      <router-link id="nav-li" to="/main" style="margin-left: 36px;">RE:CIPE</router-link>
     </li>
     <li v-show="urldata!='Menu'" style="float:right">
-      <router-link class="active" to="/Profile">
+      <router-link class="active" to="/profile">
         <i id="nav-icon2" class="far fa-user"></i>
       </router-link>
     </li>
@@ -138,7 +138,7 @@ li span {
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-  opacity: 0.5;
+  opacity: 1;
   input {
     outline: none;
   }
