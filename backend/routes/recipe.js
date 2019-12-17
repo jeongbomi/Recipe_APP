@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 var Recipe = require("../models/recipe");
+var json = require("../recipe.json");
 
 router.get("/", function(req, res) {
   Recipe.find(function(error, recipes) {
@@ -12,6 +13,16 @@ router.get("/", function(req, res) {
       res.send(recipes);
     }
   });
+});
+
+router.post("/create/json/", function(req, res) {
+  Recipe.insertMany(json, function(err, recipes) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(recipes);
+    }
+ });
 });
 
 router.post("/create", function(req, res) {
