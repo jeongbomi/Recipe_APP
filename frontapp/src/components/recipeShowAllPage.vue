@@ -124,6 +124,7 @@ html {
 .recipe-all {
   // margin-top: 80px;
   margin-bottom: 81px;
+  transition: 0.3s;
   .text {
     background-color: rgba(242, 159, 175, 0.76);
     vertical-align: center;

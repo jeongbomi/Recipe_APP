@@ -29,7 +29,7 @@
     <div class="container">
       <h3 style="margin-bottom:0px;">Level</h3>
       <hr />
-      <div class="card-grid" style="margin-bottom:50px;">
+      <div class="card-grid" style="margin-bottom:25px;">
         <div
           class="card"
           v-for="(level, index) in levels"

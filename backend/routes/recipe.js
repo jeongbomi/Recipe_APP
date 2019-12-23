@@ -33,7 +33,7 @@ router.get("/category", function(req, res) {
 
 router.get("/select", function(req, res) {
   let select = req.query.select;
-  const country = ["한국", "중국", "일본", "이탈리아", "서양", "퓨전"];
+  const country = ["한식", "중국", "일본", "이탈리아", "서양", "퓨전"];
   const level = ["초보환영", "보통", "어려움"];
 
   function replaceAll(str, searchStr, replaceStr) {
