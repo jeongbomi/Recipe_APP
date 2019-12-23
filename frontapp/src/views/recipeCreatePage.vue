@@ -14,34 +14,26 @@
         style="margin-top: 15px;"
       />
       <div class="select">
-        <select v-model="category" @change="onChange($event)">
-          <option>나라</option>
-          <option>재료</option>
-          <option>자취생</option>
-        </select>
-        <div class="select__arrow"></div>
-      </div>
-      <div class="select" v-if="category == '나라'">
-        <select v-model="kinds">
-          <option v-for="country in countrys" :key="country">{{
+        <select v-model="nation">
+          <option v-for="country in nations" :key="country">{{
             country
           }}</option>
         </select>
         <div class="select__arrow"></div>
       </div>
-      <div class="select" v-if="category == '재료'">
-        <select v-model="kinds">
-          <option v-for="material in materials" :key="material">{{
-            material
-          }}</option>
+      <div class="select">
+        <select v-model="level">
+          <option v-for="lel in levels" :key="lel">{{ lel }}</option>
         </select>
         <div class="select__arrow"></div>
       </div>
-      <div class="select" v-if="category == '자취생'">
-        <select v-model="kinds">
-          <option v-for="alone in aloner" :key="alone">{{ alone }}</option>
+      <div class="select-category">
+        <select v-model="category">
+          <option v-for="categy in categories" :key="categy">{{
+            categy
+          }}</option>
         </select>
-        <div class="select__arrow"></div>
+        <div class="select__arrow_category"></div>
       </div>
     </div>
     <br />
@@ -93,19 +85,21 @@ export default {
       ],
       picture: "",
       summary: "",
-      nation: "",
-      level: "",
-      category: "나라",
+      nation: "한식",
+      level: "초보환영",
+      category: "간단요리/간식/도시락",
       cal: "",
       qnt: "",
-      kinds: "한식",
-      countrys: ["한식", "중식", "일식", "이탈리아식", "서양식", "퓨전"],
-      materials: ["육류", "해산물", "채소", "과일"],
-      aloner: ["자취초급생", "초스피드", "간단재료", "혼밥", "야식"]
+
+      nations: ["한식", "중국", "일본", "이탈리아", "서양", "퓨전"],
+      levels: ["초보환영", "보통", "어려움"],
+      categories: []
     };
   },
   mounted() {
-    this.$http.get("http://localhost:3000/api/recipe/category");
+    this.$http.get("http://localhost:3000/api/recipe/category").then(res => {
+      this.categories = res.data.sort();
+    });
   },
   methods: {
     async newSubmit() {
@@ -161,15 +155,6 @@ export default {
       };
 
       reader.readAsDataURL(img.files[0]);
-    },
-    onChange(event) {
-      if (event.target.value === "나라") {
-        this.kinds = this.countrys[0];
-      } else if (event.target.value === "재료") {
-        this.kinds = this.materials[0];
-      } else {
-        this.kinds = this.aloner[0];
-      }
     }
   }
 };
@@ -180,7 +165,6 @@ export default {
 html {
   overflow: scroll;
 }
-
 .recipe-create {
   margin-top: 70px;
   margin-bottom: 81px;
@@ -275,6 +259,57 @@ html {
     position: absolute;
     top: 11px;
     right: 15px;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    border-style: solid;
+    border-width: 8px 5px 0 5px;
+    border-color: #7b7b7b transparent transparent transparent;
+  }
+  .select select:hover ~ .select__arrow,
+  .select select:focus ~ .select__arrow {
+    border-top-color: #000;
+  }
+  .select select:disabled ~ .select__arrow {
+    border-top-color: #ccc;
+  }
+  .select-category {
+    position: relative;
+    display: inline-block;
+    margin-top: 15px;
+    width: 126%;
+    left: -53px;
+  }
+  .select-category select {
+    display: inline-block;
+    width: 75%;
+    cursor: pointer;
+    padding: 8px 15px;
+    outline: 0;
+    border: 0;
+    border-radius: 15px;
+    background: #eee;
+    color: #7b7b7b;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  .select-category select::-ms-expand {
+    display: none;
+  }
+  .select-category select:hover,
+  .select-category select:focus {
+    color: #000;
+    background: #ccc;
+  }
+  .select-category select:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .select__arrow_category {
+    position: absolute;
+    top: 11px;
+    right: 75px;
     width: 0;
     height: 0;
     pointer-events: none;
