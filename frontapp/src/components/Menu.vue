@@ -64,9 +64,9 @@ export default {
       }
       if (data.includes("/")) {
         let redata = replaceAll(data, "/", "-");
-        this.$router.push("/recipe/" + redata);
+        this.$router.push("/menu/" + redata);
       } else {
-        this.$router.push("/recipe/" + data);
+        this.$router.push("/menu/" + data);
       }
     }
   }

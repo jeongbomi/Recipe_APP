@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="recipe-menu">
     <div class="recipe-all">
       <div v-if="recipes.length > 0">
         <div
@@ -29,8 +29,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "recipeShowAllPage",
   data() {
@@ -42,58 +40,8 @@ export default {
   },
   methods: {
     getDetail(item) {
+      console.log(item);
       this.$router.push("/recipe/" + item._id);
-    },
-    filter: async function(foodinfo) {
-      await axios
-        .get("http://localhost:3000/api/recipe")
-        .then(response => {
-          if (foodinfo == "total") {
-            this.MyItems = response.data;
-          } else {
-            if (foodinfo) {
-              response.data.forEach(data => {
-                if (data.nation == foodinfo) {
-                  this.MyItems.push(data);
-                }
-              });
-            } else {
-              response.data.forEach(data => {
-                let totolrecipe = [];
-                for (let i in data.ingredients[0].주재료) {
-                  for (let key in data.ingredients[0].주재료[i]) {
-                    totolrecipe.push(key);
-                  }
-                }
-                for (let i in data.ingredients[0].부재료) {
-                  for (let key in data.ingredients[0].부재료[i]) {
-                    totolrecipe.push(key);
-                  }
-                }
-                for (let i in data.ingredients[0].양념) {
-                  for (let key in data.ingredients[0].양념[i]) {
-                    totolrecipe.push(key);
-                  }
-                }
-                let judge = true;
-                for (let i in this.historydata.recipe) {
-                  if (totolrecipe.indexOf(this.historydata.recipe[i]) == -1) {
-                    judge = false;
-                  }
-                }
-
-                if (judge) {
-                  this.MyItems.push(data);
-                }
-              });
-
-              if (this.MyItems.length == 0) {
-                this.text = "검색결과가 없습니다.";
-              }
-            }
-          }
-        })
-        .catch(error => console.log(error));
     },
     isEmpty: function(ob) {
       for (let i in ob) {
@@ -121,50 +69,50 @@ export default {
 html {
   overflow: scroll;
 }
-.recipe-all {
-  // margin-top: 80px;
-  margin-bottom: 81px;
-  transition: 0.3s;
-  .text {
-    background-color: rgba(242, 159, 175, 0.76);
-    vertical-align: center;
-    text-align: left;
-    position: absolute;
-    top: 85%;
-    left: 50%;
-    width: 350px;
-    height: 90px;
-    padding-left: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    transform: translate(-50%, -50%);
-    color: white;
-  }
-  h1 {
-    display: block;
-    font-size: 1.5em;
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-  }
-  h3 {
-    display: block;
-    font-size: 1em;
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-  }
+.recipe-menu {
+  .recipe-all {
+    margin-bottom: 81px;
+    .text {
+      background-color: rgba(242, 159, 175, 0.76);
+      vertical-align: center;
+      text-align: left;
+      position: absolute;
+      top: 85%;
+      left: 50%;
+      width: 350px;
+      height: 90px;
+      padding-left: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      transform: translate(-50%, -50%);
+      color: white;
+    }
+    h1 {
+      display: block;
+      font-size: 1.5em;
+      margin-block-start: 0em;
+      margin-block-end: 0em;
+      margin-inline-start: 0px;
+      margin-inline-end: 0px;
+      font-weight: bold;
+    }
+    h3 {
+      display: block;
+      font-size: 1em;
+      margin-block-start: 0em;
+      margin-block-end: 0em;
+      margin-inline-start: 0px;
+      margin-inline-end: 0px;
+      font-weight: bold;
+    }
 
-  img {
-    width: 100%;
-  }
+    img {
+      width: 100%;
+    }
 
-  #btn {
-    width: 15%;
+    #btn {
+      width: 15%;
+    }
   }
 }
 </style>

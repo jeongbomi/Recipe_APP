@@ -62,7 +62,7 @@ const router = new Router({
       meta: { requiresAuth: true }
     },
     {
-      path: "/recipe/:recipe_select",
+      path: "/menu/:recipe_select",
       name: "RecipeShowAll",
       component: () => import("./components/recipeShowAllPage.vue"),
       meta: { requiresAuth: true }

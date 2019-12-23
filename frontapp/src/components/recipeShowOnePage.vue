@@ -1,21 +1,37 @@
 <template>
   <div class="recipe-one">
-    <h2>{{MyItems.name}}</h2>
-    <img :src="MyItems.picture" style="width:90%; float:center; margin-bottom:10px;" />
+    <h2>{{ MyItems.name }}</h2>
+    <img
+      :src="MyItems.picture"
+      style="width:90%; float:center; margin-bottom:10px;"
+    />
 
     <!-- 재료 정보 -->
     <div class="table">
       <img src="../assets/상세창/ingredients.png" />
       <h3>&nbsp;&nbsp;재료 정보</h3>
       <hr style="width:100%;" />
-      <h4>{{MyItems.qnt}} 기준</h4>
+      <h4>{{ MyItems.qnt }} 기준</h4>
 
       <button id="test_btn1">주재료</button>
       <br />
-      <div v-for="(value, index) in MyItems.ingredients[0].주재료 " :key="index" style="display:inline;">
-        <div v-for="(item, index2) in value" :key="item" style="display:inline;">
-          {{index2}}&nbsp;{{item}}
-          <div v-if="index != MyItems.ingredients[0].주재료.length - 1" style="display:inline;">/</div>
+      <div
+        v-for="(value, index) in MyItems.ingredients[0].주재료"
+        :key="index"
+        style="display:inline;"
+      >
+        <div
+          v-for="(item, index2) in value"
+          :key="item"
+          style="display:inline;"
+        >
+          {{ index2 }}&nbsp;{{ item }}
+          <div
+            v-if="index != MyItems.ingredients[0].주재료.length - 1"
+            style="display:inline;"
+          >
+            /
+          </div>
         </div>
       </div>
 
@@ -23,10 +39,23 @@
       <br />
       <button id="test_btn2">부재료</button>
       <br />
-      <div v-for="(value, index) in MyItems.ingredients[0].부재료 " :key="index" style="display:inline;">
-        <div v-for="(item, index2) in value" :key="item" style="display:inline;">
-          {{index2}}&nbsp;{{item}}
-          <div v-if="index != MyItems.ingredients[0].부재료.length - 1" style="display:inline;">/</div>
+      <div
+        v-for="(value, index) in MyItems.ingredients[0].부재료"
+        :key="value"
+        style="display:inline;"
+      >
+        <div
+          v-for="(item, index2) in value"
+          :key="item"
+          style="display:inline;"
+        >
+          {{ index2 }}&nbsp;{{ item }}
+          <div
+            v-if="index != MyItems.ingredients[0].부재료.length - 1"
+            style="display:inline;"
+          >
+            /
+          </div>
         </div>
       </div>
 
@@ -34,10 +63,23 @@
       <br />
       <button id="test_btn3">&nbsp;양념&nbsp;</button>
       <br />
-      <div v-for="(value, index) in MyItems.ingredients[0].양념 " :key="index" style="display:inline;">
-        <div v-for="(item, index2) in value" :key="item" style="display:inline;">
-          {{index2}}&nbsp;{{item}}
-          <div v-if="index != MyItems.ingredients[0].양념.length - 1" style="display:inline;">/</div>
+      <div
+        v-for="(value, index) in MyItems.ingredients[0].양념"
+        :key="index"
+        style="display:inline;"
+      >
+        <div
+          v-for="(item, index2) in value"
+          :key="item"
+          style="display:inline;"
+        >
+          {{ index2 }}&nbsp;{{ item }}
+          <div
+            v-if="index != MyItems.ingredients[0].양념.length - 1"
+            style="display:inline;"
+          >
+            /
+          </div>
         </div>
       </div>
 
@@ -49,55 +91,65 @@
 
     <!-- 레시피 정보 -->
     <div class="table2">
-      <img src="../assets/상세창/recipe.png" style="float: left; padding: 10px 0;" />
+      <img
+        src="../assets/상세창/recipe.png"
+        style="float: left; padding: 10px 0;"
+      />
       <h3>&nbsp;&nbsp;레시피 정보</h3>
       <hr style="width:100%;" />
 
-      <div v-if="MyItems.nation=='한식'" style="display:inline;">
-        <p>국가&nbsp;:&nbsp;{{MyItems.nation}}</p>
+      <div v-if="MyItems.nation == '한식'" style="display:inline;">
+        <p>국가&nbsp;:&nbsp;{{ MyItems.nation }}</p>
         <img src="../assets/상세창/south-korea.png" />
       </div>
 
-      <div v-else-if="MyItems.nation=='중국'">
-        <p>국가&nbsp;:&nbsp;{{MyItems.nation}}</p>
+      <div v-else-if="MyItems.nation == '중국'">
+        <p>국가&nbsp;:&nbsp;{{ MyItems.nation }}</p>
         <img src="../assets/상세창/china.png" />
       </div>
 
-      <div v-else-if="MyItems.nation=='이탈리아'">
-        <p>국가&nbsp;:&nbsp;{{MyItems.nation}}</p>
+      <div v-else-if="MyItems.nation == '이탈리아'">
+        <p>국가&nbsp;:&nbsp;{{ MyItems.nation }}</p>
         <img src="../assets/상세창/italy.png" />
       </div>
 
-      <div v-else-if="MyItems.nation=='일본'">
-        <p>국가&nbsp;:&nbsp;{{MyItems.nation}}</p>
+      <div v-else-if="MyItems.nation == '일본'">
+        <p>국가&nbsp;:&nbsp;{{ MyItems.nation }}</p>
         <img src="../assets/상세창/japan.png" />
       </div>
 
-      <div v-else-if="MyItems.nation=='서양'">
-        <p>국가&nbsp;:&nbsp;{{MyItems.nation}}</p>
+      <div v-else-if="MyItems.nation == '서양'">
+        <p>국가&nbsp;:&nbsp;{{ MyItems.nation }}</p>
         <img src="../assets/상세창/united-states.png" />
       </div>
 
-      <div v-else-if="MyItems.nation=='퓨전'" style="display:inline;">
-        <p>국가&nbsp;:&nbsp;{{MyItems.nation}}</p>
+      <div v-else-if="MyItems.nation == '퓨전'" style="display:inline;">
+        <p>국가&nbsp;:&nbsp;{{ MyItems.nation }}</p>
         <img src="../assets/상세창/internet.png" style="width:8%;" />
       </div>
 
-      <h4>칼로리: {{MyItems.cal}}</h4>
-      <h4>난이도: {{MyItems.level}}</h4>
+      <h4>칼로리: {{ MyItems.cal }}</h4>
+      <h4>난이도: {{ MyItems.level }}</h4>
     </div>
 
     <!-- 레시피 과정 정보 -->
     <div class="table3">
-      <img src="../assets/상세창/fried.png" style="width: 13%; float: left; padding: 10px 0;" />
+      <img
+        src="../assets/상세창/fried.png"
+        style="width: 13%; float: left; padding: 10px 0;"
+      />
       <h3>&nbsp;&nbsp;레시피 과정</h3>
       <hr style="width:100%;" />
 
-      <div v-for="(value, index) in MyItems.info " :key="index" style="display:inline;">
-        <h2>STEP {{index + 1}}</h2>
+      <div
+        v-for="(value, index) in MyItems.info"
+        :key="index"
+        style="display:inline;"
+      >
+        <h2>STEP {{ index + 1 }}</h2>
         <div style="display:inline;">
           <img v-if="value.picture" :src="value.picture" />
-          <p>{{value.content}}</p>
+          <p>{{ value.content }}</p>
         </div>
       </div>
     </div>
@@ -141,7 +193,7 @@ export default {
   created() {
     axios
       .get(
-        "http://54.180.151.135:3000/api/recipe/detail/" +
+        "http://localhost:3000/api/recipe/detail/" +
           this.$route.params.recipe_id
       )
       .then(response => (this.MyItems = response.data))
