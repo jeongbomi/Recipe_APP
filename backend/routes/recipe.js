@@ -15,19 +15,64 @@ router.get("/", function(req, res) {
   });
 });
 
-router.post("/create/json/", function(req, res) {
-  Recipe.insertMany(json, function(err, recipes) {
+router.get("/category", function(req, res) {
+  Recipe.find(function(err, recipes) {
     if (err) {
       console.log(err);
     } else {
-      res.send(recipes);
+      let categories = [];
+      recipes.forEach(async function(recipe) {
+        if (categories.includes(recipe.category) === false) {
+          categories.push(recipe.category);
+        }
+      });
+      res.send(categories);
     }
- });
+  });
+});
+
+router.get("/select", function(req, res) {
+  let select = req.query.select;
+  const country = ["한국", "중국", "일본", "이탈리아", "서양", "퓨전"];
+  const level = ["초보환영", "보통", "어려움"];
+
+  function replaceAll(str, searchStr, replaceStr) {
+    return str.split(searchStr).join(replaceStr);
+  }
+  if (select.includes("-")) {
+    select = replaceAll(select, "-", "/");
+  }
+
+  if (country.includes(select)) {
+    Recipe.find({ nation: select }, function(err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    });
+  } else if (level.includes(select)) {
+    Recipe.find({ level: select }, function(err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    });
+  } else {
+    Recipe.find({ category: select }, function(err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    });
+  }
 });
 
 router.post("/create", function(req, res) {
   if (!req.user) return res.status(404).json({ error: "login required" });
-  var recipe = new Recipe(req.body);
+  const recipe = new Recipe(req.body);
   recipe.save(function(err) {
     if (err) {
       console.error(err);
