@@ -1,6 +1,12 @@
 <template>
   <div class="div-search">
-    <button style="margin-top:80px; width: 80%;" class="btn-search" @click="search()">레시피 검색</button>
+    <button
+      style="margin-top:80px; width: 80%;"
+      class="btn-search"
+      @click="search()"
+    >
+      레시피 검색
+    </button>
     <div style="margin: 2%">
       <input
         type="text"
@@ -8,12 +14,15 @@
         v-on:keyup.enter="Ingredient_add()"
         v-model="ingredient"
       />
-      <button class="btn-ingredient" @click="Ingredient_add()">재료 넣기</button>
+      <button class="btn-ingredient" @click="Ingredient_add()">
+        재료 넣기
+      </button>
     </div>
     <div id="type01">
       <img
         v-for="source in ingredients"
-        class="imgtag" :key="source"
+        class="imgtag"
+        :key="source"
         :src="source.url"
         @click="reqdelete(source.name)"
         style="width:86px; height:86px;"
@@ -132,25 +141,25 @@ export default {
         "피클",
         "해삼",
         "햄",
-        "홍합",
+        "홍합"
       ],
       semi_save: []
     };
   },
   mounted() {
     this.data = JSON.parse(localStorage.getItem("userinfo"));
-    var userFood = JSON.parse(localStorage.getItem("userfood"))
-    var semiSave = this.semi_save
-    var ingredientsSave = this.ingredients
-    this.userfoods = userFood.userfood
+    const userFood = JSON.parse(localStorage.getItem("userfood"));
+    const semiSave = this.semi_save;
+    let ingredientsSave = this.ingredients;
+    this.userfoods = userFood.userfood;
 
     this.userfoods.forEach(async function(food) {
-      semiSave.push(food)
+      semiSave.push(food);
       let foodUrl = require(`../../assets/재료/${food}.png`);
-      ingredientsSave.push({ url: foodUrl, name: food })
-    })
+      ingredientsSave.push({ url: foodUrl, name: food });
+    });
 
-    localStorage.setItem('userfood', JSON.stringify({userfood: semiSave}))
+    localStorage.setItem("userfood", JSON.stringify({ userfood: semiSave }));
   },
   methods: {
     Ingredient_add: function() {
@@ -161,35 +170,39 @@ export default {
             let dataurl = require(`../../assets/재료/${this.ingredient}.png`);
             this.ingredients.push({ url: dataurl, name: this.ingredient });
             this.ingredient = "";
-            localStorage.setItem('userfood', JSON.stringify({userfood: this.semi_save}))
-            this.$http.post('http://localhost:3000/api/users/storage/food/', {userid: this.data.userid, userfood: this.semi_save})
-            .then(res => {
-              console.log(res)
-            })
-          } 
-          else {
+            localStorage.setItem(
+              "userfood",
+              JSON.stringify({ userfood: this.semi_save })
+            );
+            this.$http
+              .post("http://localhost:3000/api/users/storage/food/", {
+                userid: this.data.userid,
+                userfood: this.semi_save
+              })
+              .then(res => {
+                console.log(res);
+              });
+          } else {
             alert("RE:CIPE에는 없는 재료입니다.");
           }
-        } 
-        else {
+        } else {
           alert("이미 등록되어 있는 재료입니다.");
         }
-      } 
-      else {
-        alert("재료를 넣을 공간이 부족합니다.")
+      } else {
+        alert("재료를 넣을 공간이 부족합니다.");
       }
     },
     reqdelete: function(data) {
       let idx = 0;
       let cnt = 0;
-      if (this.userfoods.length > 0){
-        this.userfoods.some(food =>{
-          if (food == data){
+      if (this.userfoods.length > 0) {
+        this.userfoods.some(food => {
+          if (food == data) {
             return true;
-          } else{
+          } else {
             idx += 1;
           }
-        })
+        });
         this.userfoods.splice(idx, 1);
       }
       this.semi_save.some(res => {
@@ -201,23 +214,37 @@ export default {
       });
       this.semi_save.splice(cnt, 1);
       this.ingredients.splice(cnt, 1);
-      localStorage.setItem('userfood', JSON.stringify({userfood: this.semi_save}))
-      this.$http.post('http://localhost:3000/api/users/storage/food/', {userid: this.data.userid, userfood: this.semi_save})
-      .then(res => {
-        console.log(res)
-        alert("재료가 삭제되었습니다.");
-      })
+      localStorage.setItem(
+        "userfood",
+        JSON.stringify({ userfood: this.semi_save })
+      );
+      this.$http
+        .post("http://localhost:3000/api/users/storage/food/", {
+          userid: this.data.userid,
+          userfood: this.semi_save
+        })
+        .then(res => {
+          console.log(res);
+          alert("재료가 삭제되었습니다.");
+        });
     },
     search: function() {
       if (this.ingredients.length > 0) {
-        localStorage.setItem('userfood', JSON.stringify({userfood: this.semi_save}))
-        this.$http.post('http://localhost:3000/api/users/storage/food/', {userid: this.data.userid, password: this.password})
-        .then(res => {
-          console.log(res)
-          this.$router.push("/recipe/show");
-        })
+        localStorage.setItem(
+          "userfood",
+          JSON.stringify({ userfood: this.semi_save })
+        );
+        this.$http
+          .post("http://localhost:3000/api/users/storage/food/", {
+            userid: this.data.userid,
+            password: this.password
+          })
+          .then(res => {
+            console.log(res);
+            this.$router.push("/recipe/show");
+          });
       } else {
-        alert('재료를 입력해주세요.')
+        alert("재료를 입력해주세요.");
       }
     }
   }

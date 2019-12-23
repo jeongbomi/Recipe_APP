@@ -2,8 +2,17 @@
   <div class="recipe-create">
     <h2>NEW RE:CIPE</h2>
     <div>
-      <input v-model="name" type="text" placeholder="요리 이름을 입력해주세요."/>
-      <input v-model="ingredients" type="text" placeholder="요리 재료를 입력해주세요." style="margin-top: 15px;"/>
+      <input
+        v-model="name"
+        type="text"
+        placeholder="요리 이름을 입력해주세요."
+      />
+      <input
+        v-model="ingredients"
+        type="text"
+        placeholder="요리 재료를 입력해주세요."
+        style="margin-top: 15px;"
+      />
       <div class="select">
         <select v-model="category" @change="onChange($event)">
           <option>나라</option>
@@ -14,13 +23,17 @@
       </div>
       <div class="select" v-if="category == '나라'">
         <select v-model="kinds">
-          <option v-for="country in countrys" :key="country">{{ country }}</option>
+          <option v-for="country in countrys" :key="country">{{
+            country
+          }}</option>
         </select>
         <div class="select__arrow"></div>
       </div>
       <div class="select" v-if="category == '재료'">
         <select v-model="kinds">
-          <option v-for="material in materials" :key="material">{{ material }}</option>
+          <option v-for="material in materials" :key="material">{{
+            material
+          }}</option>
         </select>
         <div class="select__arrow"></div>
       </div>
@@ -34,16 +47,26 @@
     <br />
     <div v-for="(info, index) in infos" v-bind:key="index">
       <div class="inputForm">
-        <label for="fileInput"><b>STEP {{ index + 1 }}</b></label>
+        <label for="fileInput"
+          ><b>STEP {{ index + 1 }}</b></label
+        >
         <i class="fas fa-times-circle" @click="deleteInfo(index)"></i>
         <hr />
         <div class="imageBox">
           <label v-bind:for="index">
             <img v-bind:src="info.file" alt />
           </label>
-          <input type="file" v-bind:id="index" accept="image/*" @change="imageChange(index, $event)" />
+          <input
+            type="file"
+            v-bind:id="index"
+            accept="image/*"
+            @change="imageChange(index, $event)"
+          />
         </div>
-        <textarea v-model="info.content" placeholder="조리 과정에 관한 설명을 적어주세요." />
+        <textarea
+          v-model="info.content"
+          placeholder="조리 과정에 관한 설명을 적어주세요."
+        />
       </div>
       <i class="fas fa-plus-circle" @click="addNewInfo(index)"></i>
     </div>
@@ -60,7 +83,7 @@ export default {
     return {
       name: "",
       userid: JSON.parse(sessionStorage.getItem("userinfo")),
-      step: 0, 
+      step: 0,
       ingredients: [],
       infos: [
         {
@@ -76,10 +99,13 @@ export default {
       cal: "",
       qnt: "",
       kinds: "한식",
-      countrys: ['한식', '중식', '일식', '이탈리아식', '서양식', '퓨전'],
-      materials: ['육류', '해산물', '채소', '과일'],
-      aloner: ['자취초급생', '초스피드', '간단재료', '혼밥', '야식'],
+      countrys: ["한식", "중식", "일식", "이탈리아식", "서양식", "퓨전"],
+      materials: ["육류", "해산물", "채소", "과일"],
+      aloner: ["자취초급생", "초스피드", "간단재료", "혼밥", "야식"]
     };
+  },
+  mounted() {
+    this.$http.get("http://localhost:3000/api/recipe/category");
   },
   methods: {
     async newSubmit() {
@@ -102,7 +128,7 @@ export default {
         })
         .catch(error => {
           console.log(error);
-      });
+        });
     },
     addNewInfo(index) {
       this.infos.splice(index + 1, 0, {
@@ -110,7 +136,7 @@ export default {
         file: require("@/assets/uploadImage.png")
       });
 
-      this.step = this.step + 1
+      this.step = this.step + 1;
     },
     deleteInfo(index) {
       this.infos.splice(index, 1);
@@ -119,31 +145,30 @@ export default {
           content: "",
           file: require("@/assets/uploadImage.png")
         });
-        this.step = 0
-      }
-      else {
-        this.step = this.step - 1
+        this.step = 0;
+      } else {
+        this.step = this.step - 1;
       }
     },
     imageChange(index, event) {
       var img = event.target;
-      var imgInfo = this.infos
+      var imgInfo = this.infos;
 
       var reader = new FileReader();
-      reader.onload = async function(){
+      reader.onload = async function() {
         var dataURL = await reader.result;
-        imgInfo[index].file = dataURL
+        imgInfo[index].file = dataURL;
       };
 
       reader.readAsDataURL(img.files[0]);
     },
     onChange(event) {
-      if (event.target.value === '나라'){
-        this.kinds = this.countrys[0]
-      } else if (event.target.value === '재료'){
-        this.kinds = this.materials[0]
+      if (event.target.value === "나라") {
+        this.kinds = this.countrys[0];
+      } else if (event.target.value === "재료") {
+        this.kinds = this.materials[0];
       } else {
-        this.kinds = this.aloner[0]
+        this.kinds = this.aloner[0];
       }
     }
   }
@@ -177,7 +202,7 @@ html {
   i:active {
     color: #ed2894;
   }
-  input{
+  input {
     width: 90%;
     height: 25px;
     border: 1px solid #ccc;
@@ -185,7 +210,7 @@ html {
     padding-left: 16px;
   }
   input:focus {
-    outline:none;
+    outline: none;
   }
   textarea {
     width: 90%;

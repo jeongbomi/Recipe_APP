@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from "vue";
+import Router from "vue-router";
 
-Vue.use(Router)
+Vue.use(Router);
 
 const router = new Router({
   mode: "history",
@@ -62,7 +62,7 @@ const router = new Router({
       meta: { requiresAuth: true }
     },
     {
-      path: "/recipe/show",
+      path: "/recipe/:recipe_select",
       name: "RecipeShowAll",
       component: () => import("./components/recipeShowAllPage.vue"),
       meta: { requiresAuth: true }
