@@ -54,13 +54,13 @@ app.use(function(err, req, res, next) {
 });
 
 // db connect
-mongoose.connect("mongodb://127.0.0.1:27017/recipe", {
+mongoose.connect("mongodb://localhost:27017/recipe", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false
 });
 
-mongoose.set('useCreateIndex', true)
+mongoose.set("useCreateIndex", true);
 
 var db = mongoose.connection;
 
