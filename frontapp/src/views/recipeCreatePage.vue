@@ -2,19 +2,36 @@
   <div class="recipe-create">
     <h2>NEW RE:CIPE</h2>
     <div>
+      <div style="width: 55%; display:inline-block;">
+        <input
+          id="input-picture"
+          type="file"
+          accept="image/*"
+          @change="pictureChange($event)"
+          style="margin-bottom: 13px; padding-top: 3px; margin-right: 4px;"
+          required
+        />
+      </div>
+      <label
+        for="input-picture"
+        style="display:inline-block; width: 40%; font-size: 11px; z-index: -1;"
+        >* 완성사진을 업로드 해주세요.</label
+      >
       <input
         v-model="name"
         type="text"
         placeholder="요리 이름을 입력해주세요."
+        required
       />
       <input
         v-model="userIngredients"
         type="text"
         placeholder="요리 재료를 입력해주세요."
         style="margin-top: 15px;"
+        required
       />
       <div class="select">
-        <select v-model="nation">
+        <select v-model="nation" required>
           <option v-for="country in nations" :key="country">{{
             country
           }}</option>
@@ -22,18 +39,24 @@
         <div class="select__arrow"></div>
       </div>
       <div class="select">
-        <select v-model="level">
+        <select v-model="level" required>
           <option v-for="lel in levels" :key="lel">{{ lel }}</option>
         </select>
         <div class="select__arrow"></div>
       </div>
-      <div class="select-category">
-        <select v-model="category">
+      <div class="select">
+        <select v-model="category" required>
           <option v-for="categy in categories" :key="categy">{{
             categy
           }}</option>
         </select>
-        <div class="select__arrow_category"></div>
+        <div class="select__arrow"></div>
+      </div>
+      <div class="select">
+        <select v-model="qnt" required>
+          <option v-for="qt in qnts" :key="qt">{{ qt }}</option>
+        </select>
+        <div class="select__arrow"></div>
       </div>
     </div>
     <br />
@@ -89,11 +112,12 @@ export default {
       level: "초보환영",
       category: "간단요리/간식/도시락",
       cal: "",
-      qnt: "",
+      qnt: "1인분",
 
       nations: ["한식", "중국", "일본", "이탈리아", "서양", "퓨전"],
       levels: ["초보환영", "보통", "어려움"],
-      categories: []
+      categories: [],
+      qnts: ["1인분", "2인분", "3인분", "4인분", "기타"]
     };
   },
   mounted() {
@@ -145,13 +169,26 @@ export default {
       }
     },
     imageChange(index, event) {
-      var img = event.target;
-      var imgInfo = this.userInfos;
+      let img = event.target;
+      let imgInfo = this.userInfos;
 
-      var reader = new FileReader();
+      let reader = new FileReader();
       reader.onload = async function() {
-        var dataURL = await reader.result;
+        let dataURL = await reader.result;
         imgInfo[index].file = dataURL;
+      };
+
+      reader.readAsDataURL(img.files[0]);
+    },
+    pictureChange(event) {
+      let img = event.target;
+      let picture = this.picture;
+
+      let reader = new FileReader();
+      reader.onload = async function() {
+        let dataURL = await reader.result;
+        picture = dataURL;
+        console.log(picture);
       };
 
       reader.readAsDataURL(img.files[0]);
@@ -205,6 +242,7 @@ html {
     justify-content: space-between;
     margin: 0 20px;
   }
+
   .imageBox {
     label {
       img {
@@ -259,57 +297,6 @@ html {
     position: absolute;
     top: 11px;
     right: 15px;
-    width: 0;
-    height: 0;
-    pointer-events: none;
-    border-style: solid;
-    border-width: 8px 5px 0 5px;
-    border-color: #7b7b7b transparent transparent transparent;
-  }
-  .select select:hover ~ .select__arrow,
-  .select select:focus ~ .select__arrow {
-    border-top-color: #000;
-  }
-  .select select:disabled ~ .select__arrow {
-    border-top-color: #ccc;
-  }
-  .select-category {
-    position: relative;
-    display: inline-block;
-    margin-top: 15px;
-    width: 126%;
-    left: -53px;
-  }
-  .select-category select {
-    display: inline-block;
-    width: 75%;
-    cursor: pointer;
-    padding: 8px 15px;
-    outline: 0;
-    border: 0;
-    border-radius: 15px;
-    background: #eee;
-    color: #7b7b7b;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-  }
-  .select-category select::-ms-expand {
-    display: none;
-  }
-  .select-category select:hover,
-  .select-category select:focus {
-    color: #000;
-    background: #ccc;
-  }
-  .select-category select:disabled {
-    opacity: 0.5;
-    pointer-events: none;
-  }
-  .select__arrow_category {
-    position: absolute;
-    top: 11px;
-    right: 75px;
     width: 0;
     height: 0;
     pointer-events: none;
