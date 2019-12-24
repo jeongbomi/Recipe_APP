@@ -23,7 +23,9 @@ router.get("/category", function(req, res) {
       let categories = [];
       recipes.forEach(async function(recipe) {
         if (categories.includes(recipe.category) === false) {
-          categories.push(recipe.category);
+          if (recipe.category !== undefined) {
+            categories.push(recipe.category);
+          }
         }
       });
       res.send(categories);

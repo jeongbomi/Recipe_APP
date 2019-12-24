@@ -1,11 +1,11 @@
 <template>
   <div class="div-search">
     <button
-      style="margin-top:80px; width: 80%;"
+      style="margin-top:80px; width: 85%;"
       class="btn-search"
       @click="search()"
     >
-      레시피 검색
+      <b style="font-size: 14px;">레시피 검색</b>
     </button>
     <div style="margin: 2%">
       <input
@@ -15,7 +15,7 @@
         v-model="ingredient"
       />
       <button class="btn-ingredient" @click="Ingredient_add()">
-        재료 넣기
+        <b style="font-size: 12px;">재료 넣기</b>
       </button>
     </div>
     <div id="type01">
@@ -258,7 +258,7 @@ export default {
   background-position: center top;
   background-size: cover;
   .input-search {
-    width: 50%;
+    width: 62%;
     height: 25px;
     margin: 2%;
   }

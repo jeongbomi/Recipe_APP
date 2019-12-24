@@ -41,7 +41,7 @@
       <br />
       <div
         v-for="(value, index) in MyItems.ingredients[0].부재료"
-        :key="value"
+        :key="index"
         style="display:inline;"
       >
         <div
@@ -143,7 +143,7 @@
 
       <div
         v-for="(value, index) in MyItems.info"
-        :key="index"
+        :key="value"
         style="display:inline;"
       >
         <h2>STEP {{ index + 1 }}</h2>

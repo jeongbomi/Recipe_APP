@@ -8,7 +8,7 @@
         placeholder="요리 이름을 입력해주세요."
       />
       <input
-        v-model="ingredients"
+        v-model="userIngredients"
         type="text"
         placeholder="요리 재료를 입력해주세요."
         style="margin-top: 15px;"
@@ -37,7 +37,7 @@
       </div>
     </div>
     <br />
-    <div v-for="(info, index) in infos" v-bind:key="index">
+    <div v-for="(info, index) in userInfos" v-bind:key="index">
       <div class="inputForm">
         <label for="fileInput"
           ><b>STEP {{ index + 1 }}</b></label
@@ -76,8 +76,8 @@ export default {
       name: "",
       userid: JSON.parse(sessionStorage.getItem("userinfo")),
       step: 0,
-      ingredients: [],
-      infos: [
+      userIngredients: [],
+      userInfos: [
         {
           content: "",
           file: require("@/assets/uploadImage.png")
@@ -107,8 +107,8 @@ export default {
         .post("http://localhost:3000/api/recipe/create", {
           name: this.name,
           userid: this.userid,
-          ingredients: this.ingredients,
-          info: this.infos,
+          userIngredients: this.userIngredients,
+          userInfos: this.userInfos,
           picture: this.picture,
           summary: this.summary,
           nation: this.nation,
@@ -125,7 +125,7 @@ export default {
         });
     },
     addNewInfo(index) {
-      this.infos.splice(index + 1, 0, {
+      this.userInfos.splice(index + 1, 0, {
         content: "",
         file: require("@/assets/uploadImage.png")
       });
@@ -133,9 +133,9 @@ export default {
       this.step = this.step + 1;
     },
     deleteInfo(index) {
-      this.infos.splice(index, 1);
-      if (this.infos.length == 0) {
-        this.infos.push({
+      this.userInfos.splice(index, 1);
+      if (this.userInfos.length == 0) {
+        this.userInfos.push({
           content: "",
           file: require("@/assets/uploadImage.png")
         });
@@ -146,7 +146,7 @@ export default {
     },
     imageChange(index, event) {
       var img = event.target;
-      var imgInfo = this.infos;
+      var imgInfo = this.userInfos;
 
       var reader = new FileReader();
       reader.onload = async function() {
